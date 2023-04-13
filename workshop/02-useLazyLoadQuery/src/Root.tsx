@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Providers from './Providers';
 import App from './App';
+import Loading from './Loading';
 
 const Root = () => {
-  /**
-   * @TODO
-   * Add Suspense to suspend when using useLazyLoadQuery
-   * Add ErrorBoundary to catch errors in useLazyLoadQuery
-   */
-
   return (
-    <Providers>
-      <App />
-    </Providers>
+    <Suspense fallback={<Loading />}>
+      <Providers>
+        <App />
+      </Providers>
+    </Suspense>
   );
 };
 
