@@ -1,12 +1,14 @@
 /* eslint-disable */
 // eslint-disable-next-line
 import { graphql } from 'react-relay';
+import { ConnectionHandler, ROOT_ID } from 'relay-runtime';
 import { SelectorStoreUpdater, RecordSourceSelectorProxy } from 'relay-runtime';
 
 // eslint-disable-next-line import/no-unresolved
 import { PostCommentCreateInput } from './__generated__/PostCommentCreateMutation.graphql';
 // eslint-disable-next-line import/no-unresolved
 import { PostCommentComposer_me } from './__generated__/PostCommentComposer_me.graphql';
+import { toGlobalId } from 'graphql-relay';
 
 export const PostCommentCreate = graphql`
   mutation PostCommentCreateMutation($input: PostCommentCreateInput!) {
@@ -37,7 +39,16 @@ export const PostCommentCreate = graphql`
  */
 export const updater =
   (parentId: string): SelectorStoreUpdater =>
-  (store: RecordSourceSelectorProxy) => {};
+  (store: RecordSourceSelectorProxy) => {
+    const key = 'PostComments_comments';
+    const recordProxy = store.get(parentId);
+    const connection = ConnectionHandler.getConnection(recordProxy!, key);
+
+    ConnectionHandler.insertEdgeBefore(connection!, recordProxy!);
+    ConnectionHandler.insertEdgeAfter(connection!, recordProxy!);
+
+    // const node = store.crate(id, typeName);
+  };
 
 let tempID = 0;
 

@@ -1,21 +1,19 @@
 import React, { useCallback } from 'react';
-import { useFragment, graphql } from 'react-relay';
+import { useFragment, graphql, useMutation } from 'react-relay';
 import { Text } from 'rebass';
 import { Card, CardActions, theme } from '@workshop/ui';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import IconButton from '@mui/material/IconButton';
 
-import { useMutation } from '@workshop/relay';
-
-import { Post_post, Post_post$key } from './__generated__/Post_post.graphql';
+import { Post_post$key } from './__generated__/Post_post.graphql';
 import { likeOptimisticResponse, PostLike } from './PostLikeMutation';
 import { unlikeOptimisticResponse, PostUnLike } from './PostUnLikeMutation';
 import { PostLikeMutation } from './__generated__/PostLikeMutation.graphql';
 import { PostUnLikeMutation } from './__generated__/PostUnLikeMutation.graphql';
 
 type Props = {
-  post: Post_post;
+  post: Post_post$key;
 };
 const Post = (props: Props) => {
   const post = useFragment<Post_post$key>(
@@ -57,7 +55,7 @@ const Post = (props: Props) => {
     <Card mt='10px' flexDirection='column' p='10px'>
       <Text>id: {post.id}</Text>
       <Text>content: {post.content}</Text>
-      <Text>Author: {post.author.name}</Text>
+      <Text>Author: {post?.author?.name}</Text>
       <CardActions>
         <IconButton onClick={handleLike}>
           <Icon style={{ color: theme.relayDark }} />

@@ -23,7 +23,7 @@ const Post = props => {
     <Card mt='10px' flexDirection='column' p='10px'>
       <Text>id: {post.id}</Text>
       <Text>content: {post.content}</Text>
-      <Text>Author: {post.author.name}</Text>
+      <Text>Author: {post?.author?.name}</Text>
     </Card>
   );
 };
