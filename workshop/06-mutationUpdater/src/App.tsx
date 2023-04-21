@@ -5,7 +5,6 @@ import { Content } from '@workshop/ui';
 import { useLazyLoadQuery, graphql } from 'react-relay';
 
 import Feed from './Feed';
-
 import { AppQuery } from './__generated__/AppQuery.graphql';
 
 const App = () => {
@@ -15,6 +14,7 @@ const App = () => {
         ...Feed_query
       }
     `,
+    {},
   );
 
   return (

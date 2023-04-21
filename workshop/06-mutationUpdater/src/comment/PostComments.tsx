@@ -5,7 +5,6 @@ import { Flex, Text } from 'rebass';
 import { theme } from '@workshop/ui';
 
 import UserAvatar from './UserAvatar';
-
 import { PostComments_post$key } from './__generated__/PostComments_post.graphql';
 
 type Props = {
@@ -56,13 +55,13 @@ const PostComments = (props: Props) => {
     <Flex flex={1} p='16px' flexDirection='column'>
       {post.comments.edges.map(({ node }) => {
         return (
-          <Flex mt='10px' key={node.id}>
-            <UserAvatar showName={false} user={node.user} />
+          <Flex mt='10px' key={node?.id}>
+            <UserAvatar showName={false} user={node?.user} />
             <Flex backgroundColor='#F2F3F5' borderRadius={10} p='10px' ml='10px'>
               <Text fontWeight='600px' color={theme.relayDark}>
-                {node.user.name}
+                {node?.user?.name}
               </Text>
-              <Text ml='10px'>{node.body}</Text>
+              <Text ml='10px'>{node?.body}</Text>
             </Flex>
           </Flex>
         );
